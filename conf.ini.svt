@@ -1,0 +1,12 @@
+[data_base]
+host = 
+database = 
+user = 
+passwd = 
+charset =
+
+[proxy]
+ip =
+port =
+user =
+passwd =
