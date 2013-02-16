@@ -38,7 +38,7 @@ class Save {
      *
      * @return bool
      */
-    private function addWord($id, $original, $inflectId){
+    public function addWord($id, $original, $inflectId){
         $stmt = $this->dbh->prepare("
             INSERT INTO `words`
                 (`word`,
@@ -72,5 +72,34 @@ class Save {
         ");
         $stmt->execute($inflect);
         return $this->dbh->lastInsertId();
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return array
+     */
+    public function getWordsByMetaId($id){
+        $stmt = $this->dbh->prepare("
+            SELECT * FROM `words` WHERE `meta_id` = ? LIMIT 1
+        ");
+        $stmt->execute(array($id));
+
+        return $stmt->fetch();
+    }
+
+    /**
+     * @param string $word
+     *
+     * @return int
+     */
+    public function getInflectIdByWord($word){
+        $stmt = $this->dbh->prepare("
+            SELECT `inflect_id` FROM `words` WHERE `word` = ? LIMIT 1
+        ");
+        $stmt->execute(array($word));
+        list($result) = $stmt->fetch();
+
+        return $result;
     }
 }
