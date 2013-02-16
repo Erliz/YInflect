@@ -19,7 +19,6 @@ CREATE TABLE `words` (
   `meta_id` int(11) DEFAULT NULL,
   `type_id` int(2) DEFAULT NULL,
   `inflect_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `word_UNIQUE` (`word`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8$$
 
