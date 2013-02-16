@@ -38,21 +38,11 @@ if (!empty($proxyConf) && !empty($proxyConf['ip'])) {
 
 // init DB service
 $db = new Save(Registry::$db);
-
-$wordsList = fopen('list.csv', 'r');
-
-
-echo 'Мета Код: кол-во словоформ'."\n";
-while ($row = fgetcsv($wordsList, 1000, ';')) {
-    $inflects = $request->get($row[1]);
-    $result = $db->proceed($row[0], $row[1], $inflects);
-    if ($result) {
-        echo $row[0] . ': ' . count($inflects)."\n";
-    } else {
-        echo $row[0] . ': Ошибка!'."\n";
-        print_r($inflects);
-        print_r($result);
-        exit;
-    }
-    sleep(1);
+$inflect = new Inflect($db, $request);
+echo "Мета Код: кол-во словоформ\n";
+$files = glob('lists/*.csv');
+while ($file = array_shift($files)) {
+    $inflect->processFile($file);
 }
+
+echo 'All is complete!';
